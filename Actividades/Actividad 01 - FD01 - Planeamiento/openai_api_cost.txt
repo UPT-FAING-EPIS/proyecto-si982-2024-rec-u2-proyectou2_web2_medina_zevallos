@@ -1,0 +1,4 @@
+Estimación de costos para OpenAI API:
+Interacciones mensuales: 1000
+Costo por interacción: $0.0004
+Costo mensual estimado: $0.40
