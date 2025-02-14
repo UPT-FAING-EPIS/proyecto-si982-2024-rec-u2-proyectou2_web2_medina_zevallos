@@ -1,0 +1,12 @@
+Enlace: https://eventifyme-dcd2e7fsamh3g4d8.brazilsouth-01.azurewebsites.net/
+
+Administrador
+------------------
+admin2@example.com
+password2
+
+
+Cliente
+------------------
+emi@gmail.com
+password5
