@@ -188,7 +188,7 @@
 
         public string SubirImagen(Stream imageStream, string fileName)
         {
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=multimediaeventos;AccountKey=2lK68URkSne9JSEmPf0SknK/7wQ8K+fuCftgp/TJwoK5414PQ+zwSMyJ7MsLqMIPEbvEKEXLGdg2+ASt0dz6UQ==;EndpointSuffix=core.windows.net";
+            string connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
             string containerName = "xddd";
 
             // Crear el cliente de blob
