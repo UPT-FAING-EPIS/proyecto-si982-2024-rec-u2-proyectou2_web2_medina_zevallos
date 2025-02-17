@@ -1,29 +1,27 @@
-provider "local" {
-  # Proveedor local para simular servicios no directamente gestionados por nubes públicas.
+provider "azurerm" {
+  features {}
 }
 
-# Servicio de despliegue: Elastika
-resource "local_file" "elasticka_service" {
-  filename = "elasticka_service_info.txt"
-  content  = "Servicio de despliegue con Elastika. Costo mensual: 35 soles."
+resource "azurerm_resource_group" "eventifyme_rg" {
+  name     = "EventifyMeResourceGroup"
+  location = "Brazil South"
 }
 
-# API de OpenAI: estimación de costos
-resource "local_file" "openai_api" {
-  filename = "openai_api_cost.txt"
-  content  = <<EOT
-Estimación de costos para OpenAI API:
-Interacciones mensuales: 1000
-Costo por interacción: $0.0004
-Costo mensual estimado: $0.40
-EOT
+resource "azurerm_service_plan" "eventifyme_plan" {
+  name                = "EventifyMeServicePlan"
+  location            = azurerm_resource_group.eventifyme_rg.location
+  resource_group_name = azurerm_resource_group.eventifyme_rg.name
+  os_type             = "Linux"
+  sku_name            = "B1"
 }
 
-# Output para los costos estimados
-output "elasticka_cost" {
-  value = "El servicio de despliegue Elasticka tiene un costo mensual de 35 soles."
-}
+resource "azurerm_linux_web_app" "eventifyme" {
+  name                = "eventifyme-app"
+  location            = azurerm_resource_group.eventifyme_rg.location
+  resource_group_name = azurerm_resource_group.eventifyme_rg.name
+  service_plan_id     = azurerm_service_plan.eventifyme_plan.id
 
-output "openai_api_cost" {
-  value = "El servicio de OpenAI API tiene un costo mensual estimado de $0.40."
+  site_config {
+    always_on = true
+  }
 }

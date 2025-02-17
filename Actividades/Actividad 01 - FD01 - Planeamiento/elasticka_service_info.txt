@@ -1,1 +1,0 @@
-Servicio de despliegue con Elastika. Costo mensual: 35 soles.
