@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Verificar archivos en el workspace
-      run: dir /s
+      run: Get-ChildItem -Path . -Recurse -ErrorAction Continue
 
     - name: Restaurar paquetes
       run: nuget restore Sistema/SistemaEventos/SistemaEventos.sln
