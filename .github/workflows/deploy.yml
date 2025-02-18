@@ -16,11 +16,6 @@ jobs:
     - name: Checkout código
       uses: actions/checkout@v4
 
-    - name: Configurar .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '4.7.2'
-
     - name: Restaurar paquetes
       run: nuget restore EventifyMe.sln
 
