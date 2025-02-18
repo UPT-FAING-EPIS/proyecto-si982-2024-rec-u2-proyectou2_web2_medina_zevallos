@@ -17,10 +17,10 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Restaurar paquetes
-      run: nuget restore EventifyMe.sln
+      run: nuget restore SistemaEventos.sln
 
     - name: Compilar solución
-      run: msbuild EventifyMe.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
+      run: msbuild SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
 
     - name: Publicar en Azure
       uses: azure/webapps-deploy@v2
