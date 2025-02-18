@@ -26,7 +26,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Compilar solución
-      run: msbuild Sistema/SistemaEventos/SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
+      run: msbuild Sistema/SistemaEventos/SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\eventifyme^ -^ FTP.pubxml
 
     - name: Publicar en Azure
       uses: azure/webapps-deploy@v2
