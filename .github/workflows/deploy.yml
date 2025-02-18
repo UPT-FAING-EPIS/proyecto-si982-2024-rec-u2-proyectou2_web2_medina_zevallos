@@ -1,33 +1,32 @@
-name: Deploy EventifyMe to Azure
+name: Deploy to Azure
 
 on:
   push:
     branches:
-      - main  # Cambia esto si usas otra rama principal
+      - main
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout código
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+    - name: Configurar .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '4.7.2'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Restaurar paquetes
+      run: nuget restore EventifyMe.sln
 
-      - name: Build project
-        run: npm run build
+    - name: Compilar solución
+      run: msbuild EventifyMe.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: eventifyme-dcd2e7fsamh3g4d8
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: .
-
+    - name: Publicar en Azure
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        package: ./bin/Release/net472/publish
