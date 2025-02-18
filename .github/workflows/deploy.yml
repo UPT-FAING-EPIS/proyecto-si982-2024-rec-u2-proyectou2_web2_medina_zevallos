@@ -16,15 +16,18 @@ jobs:
     - name: Checkout código
       uses: actions/checkout@v4
 
+    - name: Verificar archivos en el workspace
+      run: dir /s
+
     - name: Restaurar paquetes
-      run: nuget restore SistemaEventos.sln
+      run: nuget restore Sistema/SistemaEventos/SistemaEventos.sln
 
     - name: Compilar solución
-      run: msbuild SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
+      run: msbuild Sistema/SistemaEventos/SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\FolderProfile.pubxml
 
     - name: Publicar en Azure
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-        package: ./bin/Release/net472/publish
+        package: ./Sistema/SistemaEventos/bin/Release/net472/publish
