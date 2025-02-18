@@ -10,6 +10,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Configurar Git para nombres largos
+      run: git config --system core.longpaths true
+
     - name: Checkout código
       uses: actions/checkout@v4
 
