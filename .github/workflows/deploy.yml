@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest  # ⚠️ Cambiado de windows-latest a ubuntu-latest
 
     steps:
     - name: Configurar Git para nombres largos
@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Verificar archivos en el workspace
-      run: Get-ChildItem -Path . -Recurse -ErrorAction Continue
+      run: ls -R
 
     - name: Restaurar paquetes
       run: nuget restore Sistema/SistemaEventos/SistemaEventos.sln
