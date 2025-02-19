@@ -26,11 +26,11 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Compilar solución
-      run: msbuild Sistema/SistemaEventos/SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile="Properties\PublishProfiles\eventifyme - FTP.pubxml"
+      run: msbuild Sistema/SistemaEventos/SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:OutputPath=publish
 
-    - name: Publicar en Azure
+    - name: Publicar en Azure Web Apps
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-        package: ./Sistema/SistemaEventos/bin/Release/net472/publish
+        package: ./Sistema/SistemaEventos/bin/Release/publish
