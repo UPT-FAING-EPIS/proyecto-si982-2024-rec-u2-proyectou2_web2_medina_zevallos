@@ -39,8 +39,6 @@ jobs:
         package: ./Sistema/SistemaEventos/bin/Release/publish
 
     - name: Reiniciar aplicación en Azure
-      run: |
-        curl -X POST "https://${{ secrets.AZURE_WEBAPP_NAME }}.scm.azurewebsites.net/api/command" \
-        -u "${{ secrets.AZURE_PUBLISH_PROFILE }}" \
-        -H "Content-Type: application/json" \
-        -d '{ "command": "touch wwwroot/app_offline.htm" }'
+      uses: azure/cli@v1
+      with:
+        inlineScript: az webapp restart --name ${{ secrets.AZURE_WEBAPP_NAME }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
