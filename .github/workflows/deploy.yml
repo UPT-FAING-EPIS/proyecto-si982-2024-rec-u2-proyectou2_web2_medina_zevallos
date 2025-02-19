@@ -25,10 +25,13 @@ jobs:
     - name: Instalar MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-    - name: Compilar solución
-      run: msbuild Sistema/SistemaEventos/SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:OutputPath=publish
+    - name: Crear estructura de carpetas de salida
+      run: mkdir -p Sistema/SistemaEventos/bin/Release/publish
 
-    - name: Publicar en Azure Web Apps
+    - name: Compilar solución
+      run: msbuild Sistema/SistemaEventos/SistemaEventos.sln /p:Configuration=Release /p:DeployOnBuild=true /p:OutputPath=Sistema/SistemaEventos/bin/Release/publish
+
+    - name: Publicar en Azure
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
