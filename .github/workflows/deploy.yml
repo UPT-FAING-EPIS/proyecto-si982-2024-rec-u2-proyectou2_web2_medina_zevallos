@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # ⚠️ Cambiado de windows-latest a ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Configurar Git para nombres largos
@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Verificar archivos en el workspace
-      run: ls -R
+      run: Get-ChildItem -Path . -Recurse -ErrorAction Continue
 
     - name: Restaurar paquetes
       run: nuget restore Sistema/SistemaEventos/SistemaEventos.sln
@@ -37,8 +37,3 @@ jobs:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
         package: ./Sistema/SistemaEventos/bin/Release/publish
-
-    - name: Reiniciar aplicación en Azure
-      uses: azure/cli@v1
-      with:
-        inlineScript: az webapp restart --name ${{ secrets.AZURE_WEBAPP_NAME }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
